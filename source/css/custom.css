@@ -125,10 +125,9 @@
   }
 }
 
-/* 导航栏文字/图标默认颜色（避免发灰看不清） */
+/* 导航栏文字默认颜色（避免发灰看不清），图标颜色由各菜单项单独指定 */
 #nav a,
-#nav span.site-page,
-#nav i {
+#nav span.site-page {
   color: #1f2d3d !important;
 }
 
