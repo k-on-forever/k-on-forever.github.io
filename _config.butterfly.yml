@@ -1031,25 +1031,24 @@ inject:
   head:
     - <link rel="preconnect" href="https://fonts.googleapis.com">
     - <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    - <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
-    - <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Screen:wght@400;700&display=swap" rel="stylesheet">
-    - <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    - <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    - <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
-    - <script src="/vendor/typed/typed.umd.js"></script>
-    - <script src="/js/home-hero-typewriter.js"></script>
-    - <script src="/js/card-motion-plus.js?v=20260324"></script>
-    - <script src="/js/scroll-story-plus.js?v=20260324"></script>
-    - <script src="/js/cursor-beauty.js?v=20260320"></script>
+    - <script src="/vendor/typed/typed.umd.js" defer></script>
+    - <script src="/js/home-hero-typewriter.js" defer></script>
+    - <script src="/js/card-motion-plus.js?v=20260324" defer></script>
+    - <script src="/js/scroll-story-plus.js?v=20260324" defer></script>
+    - <script src="/js/cursor-beauty.js?v=20260320" defer></script>
     - <script type="module" src="/js/live2d-waifu.js?v=20260322"></script>
-    - <script src="/js/waifu-toggle.js?v=20260403"></script>
-    - <script src="/js/font-switcher.js?v=20260403"></script>
-    - <script src="/js/home-weather-clock.js"></script>
-    - <script src="/js/home-index-reveal.js"></script>
-    - <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-    - <script src="/js/categories-dashboard.js?v=20260402"></script>
-    - <script src="/js/tags-heat-tooltip.js?v=20260501"></script>
-    - <script src="/js/reading-progress.js"></script>
+    - <script src="/js/waifu-toggle.js?v=20260403" defer></script>
+    - <script src="/js/font-switcher.js?v=20260403" defer></script>
+    - <script src="/js/home-weather-clock.js" defer></script>
+    - <script src="/js/home-index-reveal.js" defer></script>
+    - <script src="/js/categories-dashboard.js?v=20260402" defer></script>
+    - <script src="/js/tags-heat-tooltip.js?v=20260501" defer></script>
+    - <script src="/js/reading-progress.js" defer></script>
+    - <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
