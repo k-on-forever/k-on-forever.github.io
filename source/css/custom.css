@@ -591,6 +591,12 @@ canvas#live2dcanvas,
   text-shadow: none;
 }
 
+/* 滚动固定后：图标仍保留各菜单的主题色，只恢复文字默认色 */
+#page-header.nav-fixed.fixed #nav .menus_items .menus_item i,
+#page-header.fixed #nav .menus_items .menus_item i {
+  color: var(--nav-accent, #1f2d3d) !important;
+}
+
 /* 深色模式：滚动固定后 */
 [data-theme="dark"] #page-header.nav-fixed.fixed #nav,
 [data-theme="dark"] #page-header.fixed #nav {
@@ -639,10 +645,14 @@ canvas#live2dcanvas,
 }
 
 #page-header.post-bg #nav a,
-#page-header.post-bg #nav span.site-page,
-#page-header.post-bg #nav i {
+#page-header.post-bg #nav span.site-page {
   color: #1f2d3d !important;
   text-shadow: none !important;
+}
+
+/* 文章页导航栏图标：保留各菜单主题色 */
+#page-header.post-bg #nav .menus_items .menus_item i {
+  color: var(--nav-accent, #1f2d3d) !important;
 }
 
 /* 文章标题：居中显示，深色文字在浅色渐变上清晰可见 */
