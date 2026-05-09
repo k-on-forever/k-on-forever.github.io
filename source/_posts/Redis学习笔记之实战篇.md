@@ -5,7 +5,7 @@ categories:
   - Redis
 tags:
   - Redis
-cover: /img/redis-shizhan.jpg
+cover: /img/redis-shizhan.png
 ---
 
 ## 实战篇

@@ -6,7 +6,7 @@ categories:
 tags:
   - MySQL
   - SQL
-cover: /img/mysql-jichu.jpg
+cover: /img/mysql-jichu.png
 ---
 
 ## MySQL基础篇

@@ -5,7 +5,7 @@ categories:
   - MySQL
 tags:
   - MySQL
-cover: /img/mysql-cover.jpg
+cover: /img/mysql-jichu.png
 ---
 
 ### 日志
