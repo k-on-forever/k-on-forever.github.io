@@ -1,0 +1,100 @@
+classDiagram
+    class LibrarySystem {
+        +main()
+    }
+
+    class Librarian {
+        +addBook(book: Book)
+        +removeBook(bookId: String)
+        +updateBook(book: Book)
+        +addMember(member: Member)
+        +removeMember(memberId: String)
+        +updateMember(member: Member)
+        +lendBook(bookItem: BookItem, member: Member)
+        +reserveBook(bookItem: BookItem, member: Member)
+        +returnBook(bookItem: BookItem)
+    }
+
+    class Member {
+        -memberId: String
+        -name: String
+        -email: String
+        -phone: String
+        -address: String
+        +searchByTitle(keyword: String): List~Book~
+        +searchByAuthor(author: String): List~Book~
+        +searchBySubject(subject: String): List~Book~
+        +searchByPubDate(date: Date): List~Book~
+        +borrowBook(bookItem: BookItem)
+        +reserveBook(bookItem: BookItem)
+        +renewBook(bookItem: BookItem)
+        +returnBook(bookItem: BookItem)
+    }
+
+    class Book {
+        -ISBN: String
+        -title: String
+        -authors: List~String~
+        -subject: String
+        -publicationDate: Date
+        -publisher: String
+        +getBookItems(): List~BookItem~
+    }
+
+    class BookItem {
+        -barcode: String
+        -status: BookStatus
+        -dueDate: Date
+        +changeStatus(status: BookStatus)
+    }
+
+    class BookReservation {
+        -reservationId: String
+        -reservationDate: Date
+        -expiryDate: Date
+        -status: ReservationStatus
+    }
+
+    class BookLending {
+        -lendingId: String
+        -lendDate: Date
+        -returnDate: Date
+        -actualReturnDate: Date
+        +calculateFine(): double
+    }
+
+    class Fine {
+        -fineId: String
+        -amount: double
+        -paid: boolean
+    }
+
+    class BookStatus {
+        <<enumeration>>
+        AVAILABLE
+        BORROWED
+        RESERVED
+        LOST
+    }
+
+    class ReservationStatus {
+        <<enumeration>>
+        ACTIVE
+        COMPLETED
+        CANCELLED
+        EXPIRED
+    }
+
+    LibrarySystem ..> Librarian
+    LibrarySystem ..> Member
+    Librarian --> Book : manages
+    Librarian --> BookItem : manages
+    Librarian --> Member : manages
+    Book "1" *-- "*" BookItem : contains
+    Member "1" --> "*" BookLending : has
+    Member "1" --> "*" BookReservation : makes
+    BookItem "1" --> "0..1" BookLending : linked
+    BookItem "1" --> "0..1" BookReservation : reserved by
+    BookLending "1" --> "0..1" Fine : generates
+    BookItem ..> BookStatus
+    BookReservation ..> ReservationStatus

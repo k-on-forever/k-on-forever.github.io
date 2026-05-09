@@ -1,0 +1,22 @@
+{
+  "mouseover": [],
+  "click": [],
+  "seasons": [],
+  "time": [],
+  "message": {
+    "default": [" "],
+    "console": " ",
+    "copy": " ",
+    "visibilitychange": " ",
+    "changeSuccess": " ",
+    "changeFail": " ",
+    "photo": " ",
+    "goodbye": " ",
+    "hitokoto": " ",
+    "welcome": " ",
+    "referrer": " ",
+    "hoverBody": [" "],
+    "tapBody": [" "]
+  },
+  "models": []
+}
