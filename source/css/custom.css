@@ -2,10 +2,6 @@
 @import url('https://fonts.font.im/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Poppins:wght@400;500;600;700;800;900&family=ZCOOL+KuaiLe&display=swap');
 /* 霞鹜文楷屏幕阅读版 (主 CDN) */
 @import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
-/* 霞鹜文楷 CDN 备用 (ghproxy) */
-@import url('https://ghproxy.net/https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
-/* ZCOOL KuaiLe 备用（jsdelivr 国内节点） */
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/zcool-kuaile@5.1.0/index.css');
 
 /* 首页标题和副标题样式 */
 #site-title {
