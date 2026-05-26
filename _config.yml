@@ -105,9 +105,17 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repository: https://github.com/k-on-forever/k-on-forever.github.io.git
-  branch: main
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  rel: false
+
+# Feed (RSS / Atom)
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  content_limit: 140
+
