@@ -28,7 +28,7 @@
 - **框架**：Hexo 8.1.1
 - **主题**：Butterfly
 - **部署**：GitHub Pages / 自定义服务器
-- **编辑器**：VS Code + Claude Code
+- **编辑器**：VS Code
 
 ## 📦 安装与使用
 
