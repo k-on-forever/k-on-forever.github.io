@@ -50,6 +50,31 @@
     root.dataset.font = preset.id;
     root.style.setProperty('--site-font-body', preset.body);
     root.style.setProperty('--site-font-heading', preset.heading);
+
+    // Also set body font directly as a fallback (theme may not use the variable)
+    if (document.body) {
+      document.body.style.fontFamily = preset.body;
+    }
+
+    // Inject a <style> element with !important to override theme-compiled CSS
+    const head = document.head || document.getElementsByTagName('head')[0];
+    if (!head) return;
+    let style = document.getElementById('acg-font-override');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'acg-font-override';
+      head.appendChild(style);
+    }
+    // Override body & text elements, but EXCLUDE icon fonts (FontAwesome, etc.)
+    var bodyFont = preset.body;
+    var headFont = preset.heading;
+    var monoFont = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace';
+    var css = '';
+    css += 'body { font-family: ' + bodyFont + ' !important; }\n';
+    css += '*:not(i):not(.fas):not(.far):not(.fab):not([class*="fa-"]):not(pre):not(code):not(kbd):not(samp):not(.highlight):not(.acg-font-panel__preview) { font-family: ' + bodyFont + ' !important; }\n';
+    css += 'h1, h2, h3, h4, h5, h6, .post-title, .article-title, .page-title, .page-description { font-family: ' + headFont + ' !important; }\n';
+    css += 'pre, code, kbd, samp, .highlight, .code-snippet__fix, .highlight code, .highlight table, .table-wrap, .post-content code, .post-content pre { font-family: ' + monoFont + ' !important; }\n';
+    style.textContent = css;
   };
 
   const ensureBtn = () => {
@@ -108,8 +133,8 @@
       document.body.appendChild(overlay);
 
       overlay.addEventListener('click', (e) => {
-        const t = e.target;
-        if (t && (t.dataset && t.dataset.close !== undefined)) {
+        const closeEl = e.target.closest('[data-close]');
+        if (closeEl) {
           closePanel();
         }
       });

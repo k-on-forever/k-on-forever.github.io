@@ -47,6 +47,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Ping search engines
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=https://kon-forever.cloud/sitemap.xml" -o /dev/null -w "Google: %{http_code}\n"
+          curl -s "https://www.bing.com/ping?sitemap=https://kon-forever.cloud/sitemap.xml" -o /dev/null -w "Bing: %{http_code}\n"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

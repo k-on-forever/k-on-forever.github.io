@@ -1,11 +1,12 @@
 ---
 title: MySQL学习笔记之进阶篇
+description: MySQL 存储引擎、索引、SQL 优化、事务锁机制与性能调优实战
 date: 2026-03-28 11:00:00
 categories:
   - MySQL
 tags:
   - MySQL
-cover: /img/mysql-jinjie.jpg
+cover: /img/mysql_jinjie.jpg
 ---
 
 ### 存储引擎

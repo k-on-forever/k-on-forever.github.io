@@ -2,10 +2,13 @@
 title: 关于
 date: 2026-03-28 12:00:00
 comments: false
-top_img: /img/bg_index.jpg
+top_img: false
+type: about
 ---
 
 <div class="about-page">
+  <h1 class="about-page-title">关于</h1>
+
   <header class="about-hero">
     <h1 class="about-hero__title">k-on-forever</h1>
     <p class="about-hero__tagline">在学 Java / Spring 的练习生，顺便把 Hexo 博客当「桌面便签 + 公开笔记」来用。</p>

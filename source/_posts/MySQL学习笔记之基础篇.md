@@ -1,12 +1,13 @@
 ---
 title: MySQL学习笔记之基础篇
+description: MySQL 基础语法入门：DDL 数据定义、DML 数据操作、DQL 多表查询与 DCL 权限控制
 date: 2026-03-28 10:00:00
 categories:
   - MySQL
 tags:
   - MySQL
   - SQL
-cover: /img/mysql-jichu.png
+cover: /img/mysql-jichu.jpg
 ---
 
 ## MySQL基础篇

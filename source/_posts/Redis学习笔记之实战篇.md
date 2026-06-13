@@ -1,18 +1,19 @@
 ---
 title: Redis学习笔记之实战篇
+description: Redis 实战应用：短信验证码、缓存策略、分布式锁、消息队列与秒杀案例
 date: 2026-03-29 11:00:00
 categories:
   - Redis
 tags:
   - Redis
-cover: /img/redis-shizhan.png
+cover: /img/redis_shizhan.jpg
 ---
 
 ## 实战篇
 
 ### 短信登录
 
-#### 1. 思路分析
+#### 思路分析
 
 **发送验证码：**
 
@@ -28,7 +29,7 @@ cover: /img/redis-shizhan.png
 
 <img src="https://i-blog.csdnimg.cn/direct/f772e3bfc10d4593b05301c90bfd1929.png" alt="img" style="zoom:67%;" />
 
-#### 2. 实现发送短信验证码功能
+#### 实现发送短信验证码功能
 
 发送验证码
 
@@ -107,7 +108,7 @@ cover: /img/redis-shizhan.png
 - 这是 MyBatis-Plus 提供的一个方法，通常在继承了 `ServiceImpl` 的 Service 层类中使用。
 - 它的作用是：**创建并返回一个 `QueryWrapper` 查询条件构造器**。
 
-#### 3. 实现登录拦截功能
+#### 实现登录拦截功能
 
 拦截器代码
 
@@ -166,7 +167,7 @@ public class MvcConfig implements WebMvcConfigurer {
 }
 ```
 
-#### 4. Redis代替session的业务流程
+#### Redis代替session的业务流程
 
 思路分析
 
@@ -245,7 +246,7 @@ public Result login(LoginFormDTO loginForm, HttpSession session) {
 
 **给 Redis 中指定的 Key 设置「自动删除倒计时」，时间一到，Redis 就自动把这个 Key 和它对应的所有数据删掉**。
 
-#### 5. 登录刷新问题
+#### 登录刷新问题
 
 思路分析
 
@@ -303,7 +304,7 @@ public boolean preHandle(...) {
 
 ### 商户查询缓存
 
-#### 1. 添加商户缓存
+#### 添加商户缓存
 
 思路分析
 
@@ -347,7 +348,7 @@ public Result queryById(Long id) {
 - **Redis 的存储限制**：Redis 是一个键值对数据库，它只能存储字符串、数字等基础类型，不能直接存储 Java 对象。所以你在把 `Shop` 存进 Redis 时，必须先用 `JSONUtil.toJsonStr(shop)` 把它转成 JSON 字符串（文本）才能存。
 - **Java 的业务需求**：从 Redis 取出来后，必须把 JSON 字符串**还原成 `Shop` 对象**，才能在 Java 代码里正常使用。
 
-#### 2. 缓存更新策略
+#### 缓存更新策略
 
 三种策略
 
@@ -719,7 +720,7 @@ cacheClient.queryWithLogicalExpire(CACHE_SHOP_KEY, id, Shop.class, this::getById
 
 ### 优惠券秒杀
 
-#### 1. 全局唯一ID
+#### 全局唯一ID
 
 为了增加ID的安全性，我们不直接使用Redis自增的数值，而是拼接一些其它信息：
 
@@ -731,7 +732,7 @@ ID的组成部分：符号位：1bit，永远为0
 
 序列号：32bit，秒内的计数器，支持每秒产生2^32个不同ID
 
-#### 2. Redis实现全局唯一Id
+#### Redis实现全局唯一Id
 
 RedisIdWorker
 
@@ -823,7 +824,7 @@ CountDownLatch 的工作原理：
 - 你站在旁边等（`latch.await()`），直到倒计时牌数字变成 0（所有工人都完成），才开始计算从开工到收工的总时间；
 - 如果没有这个倒计时牌，你可能刚安排完工人就看表，此时工人还在干活，统计的时间毫无意义。
 
-#### 3. 实现秒杀下单
+#### 实现秒杀下单
 
 思路分析
 
@@ -912,7 +913,7 @@ seckillVoucherService.update()
 | `.eq("voucher_id", voucherId)`   | 添加更新条件：只更新`voucher_id`等于传入的优惠券 ID 的记录   |
 | `.update()`                      | 执行最终的更新操作，对应 SQL：`UPDATE seckill_voucher SET stock = stock - 1 WHERE voucher_id = ?` |
 
-#### 4. 库存超卖问题分析
+#### 库存超卖问题分析
 
 存在的问题
 
@@ -944,7 +945,7 @@ seckillVoucherService.update()
 - 这是**乐观锁 / 库存校验的关键**：要求**数据库中当前的库存值**，必须**大于**代码中拿到的**预期库存**（`voucher.getStock()`）。
 - 为什么能防超卖？多线程并发请求时，只有当数据库库存确实大于预期值时，才会执行扣减；如果某线程执行时库存已不足，该条件会直接失败，避免 `stock` 变成负数。
 
-#### 5. 一人一单
+#### 一人一单
 
 版本1.0
 
@@ -1075,7 +1076,7 @@ synchronized (userId.toString().intern()) {
 - **保证事务生效**：通过 `proxy` 调用，Spring 代理对象会拦截方法，开启事务、提交 / 回滚，**数据一致性**得到保证。
 - **保证一人一单**：锁还在外层，释放锁前事务一定提交，**并发安全性**得到保证。
 
-#### 6. 集群环境下的并发问题
+#### 集群环境下的并发问题
 
 同一个用户（比如用户 100），同时发送请求到 **服务器 A** 和 **服务器 B**。
 
@@ -1086,7 +1087,7 @@ synchronized (userId.toString().intern()) {
 
 ### 分布式锁
 
-#### 1. Redis 实现分布式锁版统一
+#### Redis 实现分布式锁版统一
 
 **SimpleRedisLock**
 
@@ -1171,7 +1172,7 @@ public boolean tryLock(long timeoutSec) {
     }
 ```
 
-#### 2. Redis分布式锁误删情况说明
+#### Redis分布式锁误删情况说明
 
 存在的问题
 
@@ -1219,7 +1220,7 @@ public void unlock() {
 }
 ```
 
-#### 3. 分布式锁的原子性问题
+#### 分布式锁的原子性问题
 
 我们结合线程 1、线程 2 的动作，一步步拆解：
 
@@ -1234,7 +1235,7 @@ public void unlock() {
 
 **核心后果**：线程 1 明明做了 “验证归属” 的判断，却依然误删了线程 2 的锁 —— 因为**验证和删除中间被打断了。**
 
-#### 4. 利用Java代码调用Lua脚本改造分布式锁
+#### 利用Java代码调用Lua脚本改造分布式锁
 
 ```java
 private static final DefaultRedisScript<Long> UNLOCK_SCRIPT;
@@ -1270,7 +1271,7 @@ public void unlock() {
 
 ### 分布式锁-redission
 
-#### 1. 存在的问题
+#### 存在的问题
 
 不可重入：
 
@@ -1315,7 +1316,7 @@ public void methodB() {
 - 集群选举一个从节点成为新主节点，但这个新主节点**没有刚才的锁数据**，认为锁不存在
 - 线程 B 来拿锁，直接成功，这时候就出现了**两个线程同时持有同一个锁**的情况，锁失效，并发安全问题爆发。
 
-#### 2. Redission快速入门
+#### Redission快速入门
 
 配置Redisson客户端
 
@@ -1407,7 +1408,7 @@ public Result seckillVoucher(Long voucherId) {
  }
 ```
 
-#### 3. redission可重入锁原理
+#### redission可重入锁原理
 
 3 个核心参数
 
@@ -1438,7 +1439,7 @@ end;
 return redis.call('pttl', KEYS[1]); -- 返回锁的剩余过期时间
 ```
 
-#### 4. redission锁重试和WatchDog机制
+#### redission锁重试和WatchDog机制
 
 Lua 抢锁逻辑
 
@@ -1504,7 +1505,7 @@ return ttlRemainingFuture;
 - 逻辑：只有抢锁成功（`ttlRemaining=null`），才调用 `scheduleExpirationRenewal(threadId)`；
 - `scheduleExpirationRenewal`：核心作用是「启动看门狗续约线程」，是连接抢锁和续约的关键方法。
 
-#### 5. redission锁的MutiLock原理
+#### redission锁的MutiLock原理
 
 存在的问题
 
@@ -1520,7 +1521,7 @@ return ttlRemainingFuture;
 
 ### 秒杀优化
 
-#### 1. 异步秒杀思路
+#### 异步秒杀思路
 
 (1) 当用户下单之后，判断库存是否充足只需要到redis中去根据key找对应的value是否大于0即可。如果不充足，则直接结束，如果充足，继续在redis中判断用户是否可以下单，如果set集合中没有这条数据，说明它可以下单，如果set集合中没有这条记录，则将userId和优惠卷存入到redis中，并且返回0，整个过程需要保证是原子性的，我们可以使用lua来操作。
 
@@ -1528,7 +1529,7 @@ return ttlRemainingFuture;
 
 (2) 校验通过后，无需等待完整下单流程完成，直接给用户返回 “下单受理成功”（附带订单 ID），同时将下单任务丢入异步队列；后台单独线程消费异步队列中的任务，慢慢执行完整的数据库下单逻辑（创建订单、扣减库存等）；前端通过返回的订单 ID，查询异步下单的最终结果（成功 / 失败）。
 
-#### 2. Redis完成秒杀资格判断
+#### Redis完成秒杀资格判断
 
 需求
 
@@ -1612,7 +1613,7 @@ public Result seckillVoucher(Long voucherId) {
 }
 ```
 
-#### 3. 基于阻塞队列实现秒杀优化
+#### 基于阻塞队列实现秒杀优化
 
 ```java
 //异步处理线程池
@@ -1740,7 +1741,7 @@ private void init() {
 
 ### Postman测试方法
 
-#### 1. 发送验证码（不需要登录）
+#### 发送验证码（不需要登录）
 
 (1) 请求方式：POST
 
@@ -1754,7 +1755,7 @@ private void init() {
 }
 ```
 
-#### 2. 登录获取 token
+#### 登录获取 token
 
 (1) 请求方式：POST
 
@@ -1779,7 +1780,7 @@ private void init() {
 
 这个字符串就是 token，复制保存下来
 
-#### 3. 测试登录状态（验证 token 是否有效）
+#### 测试登录状态（验证 token 是否有效）
 
 (1) 请求方式：GET
 
@@ -1802,7 +1803,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 }
 ```
 
-#### 4. 秒杀下单（需要登录）
+#### 秒杀下单（需要登录）
 
 (1) 请求方式：POST
 
@@ -1825,7 +1826,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 
 ### JMeter使用方法
 
-#### 1. 添加线程组
+#### 添加线程组
 
 (1) 右键 “测试计划” → 添加 → 线程(用户) → 线程组
 
@@ -1839,7 +1840,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 
 <img src="https://i-blog.csdnimg.cn/direct/6c46a765b36a4d479fa28be8c4693697.png" alt="img" style="zoom: 33%;" />
 
-#### 2. 添加 HTTP 请求
+#### 添加 HTTP 请求
 
 (1) 右键 “线程组” → 添加 → 取样器 → HTTP 请求
 
@@ -1853,7 +1854,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 
 <img src="https://i-blog.csdnimg.cn/direct/ecf3ba3200114a0c85f4ab9126e80b81.png" alt="img" style="zoom:33%;" />
 
-#### 3. 添加 HTTP 信息头管理器
+#### 添加 HTTP 信息头管理器
 
 (1) 右键 “线程组” → 添加 → 配置元件 → HTTP 信息头管理器
 
@@ -1862,7 +1863,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 - 名称：authorization
 - 值：你的登录token（例如：1c3e03a8a5734dd1a8a5285c0d49a63c）
 
-#### 4. 添加监听器（查看结果）
+#### 添加监听器（查看结果）
 
 右键 “线程组” → 添加 → 监听器 → 选择：
 
@@ -1872,13 +1873,13 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 
 - 聚合报告：更详细的性能报告
 
-#### 5. 运行测试
+#### 运行测试
 
 点击顶部工具栏的绿色“启动”按钮
 
 ### 消息队列
 
-#### 1. 为什么使用消息队列
+#### 为什么使用消息队列
 
 阻塞队列是 **JVM 内存内的本地队列**，只适合「单机、简单场景」，实际项目中处处受限：
 
@@ -1890,13 +1891,13 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 
 阻塞队列的任务仅存在内存中，**服务重启、宕机或 OOM 时，未处理的消息会全部丢失**：在秒杀等核心业务中，这会导致用户已成功下单但订单数据丢失，引发资损和客诉。
 
-#### 2. 认识消息队列
+#### 认识消息队列
 
 - 消息队列：存储和管理消息，也被称为消息代理（Message Broker）
 - 生产者：发送消息到消息队列
 - 消费者：从消息队列获取消息并处理消息
 
-#### 3. 基于List实现消息队列（了解即可）
+#### 基于List实现消息队列（了解即可）
 
 实现原理
 
@@ -1917,7 +1918,7 @@ authorization: 1c3e03a8a5734dd1a8a5285c0d49a63c
 - 无法避免消息丢失
 - 只支持单消费者
 
-#### 3. 基于PubSub的消息队列（了解即可）
+#### 基于PubSub的消息队列（了解即可）
 
 实现原理
 
@@ -1941,7 +1942,7 @@ PSUBSCRIBE pattern[pattern] ：订阅与pattern格式匹配的所有频道
 - 无法避免消息丢失
 - 消息堆积有上限，超出时数据丢失
 
-#### 4. 基于Stream的消息队列（推荐）
+#### 基于Stream的消息队列（推荐）
 
 发送消息：XADD 命令
 
@@ -2000,7 +2001,7 @@ XREAD COUNT 1 BLOCK 1000 STREAMS users $
 
 使用 `$` 读取最新消息时存在**漏读风险**：若处理当前消息期间，队列新增了多条消息，下次调用只会获取到**最新的一条**，中间新增的消息会被跳过。
 
-#### 5. 基于Stream的消息队列-消费者组
+#### 基于Stream的消息队列-消费者组
 
 创建消费者组
 
@@ -2096,7 +2097,7 @@ while(true){
 - `0` 代表从 `pending-list` 中读取**已分配但未确认**的消息，也就是之前处理失败的那条。
 - 这是为了**不丢失消息**，保证失败的消息会被反复重试，直到处理成功。
 
-#### 6. 基于Redis的Stream结构作为消息队列，实现异步秒杀下单
+#### 基于Redis的Stream结构作为消息队列，实现异步秒杀下单
 
 需求
 
@@ -2220,7 +2221,7 @@ List<MapRecord<String, Object, Object>> list = stringRedisTemplate.opsForStream(
 
 ### 达人探店
 
-#### 1. 查看探店笔记
+#### 查看探店笔记
 
 BlogServiceImpl
 
@@ -2252,7 +2253,7 @@ public Result queryBlogById(Long id) {
 
 这个私有方法的核心作用是：**根据博客（Blog）中的用户 ID，查询对应的用户信息，并把用户的「昵称」和「头像」两个核心字段填充到博客对象中**，最终让博客对象包含发布者的展示信息（而非完整的用户对象），适配前端详情页只需要昵称 / 头像的展示需求。
 
-#### 2. 点赞功能
+#### 点赞功能
 
 需求
 
@@ -2304,7 +2305,7 @@ private Boolean isLike;
         }
 ```
 
-#### 3. 点赞排行榜
+#### 点赞排行榜
 
 BlogServiceImpl
 
@@ -2474,7 +2475,7 @@ MP 的批量查询条件
 
 ### 好友关注
 
-#### 1. 关注和取消关注
+#### 关注和取消关注
 
 FollowController
 
@@ -2571,7 +2572,7 @@ new QueryWrapper<Follow>()
 
 翻译：我不能乱删，必须告诉我**删哪一行**
 
-#### 2. 共同关注
+#### 共同关注
 
 代码实现
 
@@ -2669,7 +2670,7 @@ public Result followCommons(Long id) {
 
 把转换好的数字 ID，打包成一个**列表** 
 
-#### 3. Feed流实现方案
+#### Feed流实现方案
 
 针对好友的操作，采用的是Timeline的方式，只需要拿到我们关注用户的信息，然后按照时间排序即可，因此采用Timeline的模式。该模式的实现方案有三种：
 
@@ -2766,7 +2767,7 @@ public Result saveBlog(Blog blog) {
 }
 ```
 
-#### 5. 实现分页查询收邮箱
+#### 实现分页查询收邮箱
 
 需求
 
@@ -2906,7 +2907,7 @@ Redis 查出的 `blogId` 是**按时间倒序**的，但 MySQL 的 `IN` 查询**
 
 ### 附近商户
 
-#### 1. GEO数据结构的基本用法
+#### GEO数据结构的基本用法
 
 GEO就是Geolocation的简写形式，代表地理坐标。Redis在3.2版本中加入了对GEO的支持，允许存储地理坐标信息，帮助我们根据经纬度来检索数据。常见的命令有：
 
@@ -2918,7 +2919,7 @@ GEO就是Geolocation的简写形式，代表地理坐标。Redis在3.2版本中�
 - GEOSEARCH：在指定范围内搜索member，并按照与指定点之间的距离排序后返回。范围可以是圆形或矩形。6.2.新功能
 - GEOSEARCHSTORE：与GEOSEARCH功能一致，不过可以把结果存储到一个指定的key。6.2.新功能
 
-#### 2. 导入店铺数据到GEO
+#### 导入店铺数据到GEO
 
 Redis GEO 数据结构设计
 
@@ -2999,7 +3000,7 @@ for (Shop shop : value) {
 - **`shop.getId().toString()`**：把店铺 ID 转成字符串，作为 Redis GEO 里的 `member`（相当于快递单号，用来后续查询店铺信息）
 - **`new Point(shop.getX(), shop.getY())`**：封装店铺的经纬度
 
-#### 3. 实现附近商户功能
+#### 实现附近商户功能
 
 ShopController
 
@@ -3110,7 +3111,7 @@ ShopServiceImpl
 
 ### 用户签到
 
-#### 1. BitMap的操作命令：
+#### BitMap的操作命令：
 
 - SETBIT：向指定位置（offset）存入一个0或1
 - GETBIT ：获取指定位置（offset）的bit值
@@ -3120,7 +3121,7 @@ ShopServiceImpl
 - BITOP ：将多个BitMap的结果做位运算（与 、或、异或）
 - BITPOS ：查找bit数组中指定范围内第一个0或1出现的位置
 
-#### 2. 实现签到功能
+#### 实现签到功能
 
 UserServiceImpl
 
@@ -3142,7 +3143,7 @@ public Result sign() {
 }
 ```
 
-#### 3. 签到统计
+#### 签到统计
 
 UserServiceImpl
 

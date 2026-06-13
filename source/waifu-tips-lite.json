@@ -1,22 +1,142 @@
 {
-  "mouseover": [],
-  "click": [],
-  "seasons": [],
-  "time": [],
+  "mouseover": [{
+    "selector": "a[href*='github']",
+    "text": ["GitHub 上又有新星星了吗 ⭐", "想去看看你的项目 👀", "提交记录要保持哦 💪"]
+  }, {
+    "selector": "#site-title",
+    "text": ["主页标题！欢迎回来 🎉", "这里记录了一个练习生的成长 📝"]
+  }, {
+    "selector": "#recent-posts .recent-post-item",
+    "text": ["又一篇笔记出炉了 📖", "让我看看写了什么～", "学得好认真呀！"]
+  }, {
+    "selector": "#aside-content .card_author",
+    "text": ["博主大大在这里呢 😊", "今天也在努力学习 Java 吗？"]
+  }, {
+    "selector": "#aside-content .card_announcement",
+    "text": ["公告栏有什么新消息呢 📢", "来瞅瞅今天的公告～"]
+  }, {
+    "selector": "#aside-content .card_categories",
+    "text": ["分类整理得整整齐齐的 📂", "MySQL、Redis、SSM…好多系列！"]
+  }, {
+    "selector": "#aside-content .card_archives",
+    "text": ["时间线记录着成长的每一步 📅", "一路写过来，真的不容易呢"]
+  }, {
+    "selector": "#aside-content .card_recent_post",
+    "text": ["最近更新的文章 👇", "又有新内容可以看了～"]
+  }, {
+    "selector": "#toc",
+    "text": ["目录导航，快速定位 📑", "这篇文章结构很清晰呢"]
+  }, {
+    "selector": "#post .post-content h2",
+    "text": ["嗯～这一节讲的是什么？🤔", "划重点划重点 ✏️", "干货来了！"]
+  }, {
+    "selector": "#post .post-content code",
+    "text": ["代码写得规范吗？让我检查一下 👀", "又一段代码，眼睛都花了 😵"]
+  }, {
+    "selector": "#post .post-content blockquote",
+    "text": ["重点引用，记下来记下来 📌", "这句话说得有道理"]
+  }, {
+    "selector": "#search-button",
+    "text": ["想搜什么关键词？🔍", "站内搜索，一秒直达"]
+  }, {
+    "selector": "#footer",
+    "text": ["博客的脚底～走到尽头了 🏁", "感谢阅读到最后！"]
+  }, {
+    "selector": ".home-weather-clock",
+    "text": ["今天的天气怎么样？☀️", "注意保暖/防暑哦～"]
+  }, {
+    "selector": ".about-card h2",
+    "text": ["关于这个博客…ℹ️", "这里有博主的自述～"]
+  }],
+  "click": [{
+    "selector": "#site-title",
+    "text": ["点我干嘛，快去学习！📚", "主页标题被我承包了 😤"]
+  }, {
+    "selector": "#recent-posts .recent-post-item",
+    "text": ["点开看看，这篇应该干货满满 📖", "又学新知识了，好棒！"]
+  }, {
+    "selector": "#search-button",
+    "text": ["搜什么？我帮你找 🔎", "关键词想好了吗？"]
+  }, {
+    "selector": "#toc",
+    "text": ["目录一目了然，结构党狂喜 📋", "带编号的目录，爱了爱了 ❤️"]
+  }, {
+    "selector": "#post .post-content h2",
+    "text": ["这一段我帮你高亮了 ✨", "认真读！后面可能要考 😎"]
+  }, {
+    "selector": "#post .post-content code",
+    "text": ["代码一眼看过去…嗯，还行 😏", "以后会写得越来越好的！"]
+  }, {
+    "selector": "#footer",
+    "text": ["翻到底了，还不去学点新的？😤", "感谢阅读，下次再来哦～"]
+  }, {
+    "selector": ".about-chip",
+    "text": ["这个技术栈你掌握了吗？😏", "Java？Spring？总有一天会精通的！"]
+  }],
+  "seasons": [{
+    "date": "01/01-02/28",
+    "text": "天冷记得穿多点 🧣"
+  }, {
+    "date": "03/01-05/31",
+    "text": "春天来了，出去走走也不错 🌸"
+  }, {
+    "date": "06/01-08/31",
+    "text": "夏天好热，注意补水 🍉"
+  }, {
+    "date": "09/01-11/30",
+    "text": "秋天到，贴秋膘 🍂"
+  }, {
+    "date": "12/01-12/31",
+    "text": "一年又要过去了，回顾一下成长吧 📊"
+  }],
+  "time": [{
+    "hour": "0-5",
+    "text": ["夜深了，还在修仙吗？🌙", "早点睡吧，代码明天再改 💤"]
+  }, {
+    "hour": "6-8",
+    "text": ["早安！新的一天开始了 🌅", "早起的人儿有 bug 改 😅"]
+  }, {
+    "hour": "9-11",
+    "text": ["上午是写代码的黄金时间 ⚡", "好好利用上午的时间～"]
+  }, {
+    "hour": "12-13",
+    "text": ["午饭时间！记得吃饱 🍚", "人是铁饭是钢 🍱"]
+  }, {
+    "hour": "14-17",
+    "text": ["下午容易犯困，起来走走 🚶", "喝口水，伸个懒腰 🤸"]
+  }, {
+    "hour": "18-20",
+    "text": ["晚饭时间～犒劳一下自己 🍜", "忙碌了一天，辛苦了 🥰"]
+  }, {
+    "hour": "21-23",
+    "text": ["晚上的时光最安静 🌃", "适合静下心来写写博客 ✍️"]
+  }],
   "message": {
-    "default": [" "],
-    "console": " ",
-    "copy": " ",
-    "visibilitychange": " ",
-    "changeSuccess": " ",
-    "changeFail": " ",
-    "photo": " ",
-    "goodbye": " ",
-    "hitokoto": " ",
-    "welcome": " ",
-    "referrer": " ",
-    "hoverBody": [" "],
-    "tapBody": [" "]
+    "default": ["盯～你终于来了 👀", "又在看博客呀，真努力 📖", "要不要去 GitHub 逛逛？🐙", "写博客最帅了 ✨", "今天学到了什么新知识？🤔", "这个主题是博主自己调的哦 🎨", "Hexo 真香 😋", "翻翻分类页吧，有很多干货 🗂️", "MySQL 基础篇你看过了吗？😉"],
+    "console": "嘘…你在看控制台！是不是想偷看我 👀",
+    "copy": "复制了啥好东西？📋 记得注明出处哦～",
+    "visibilitychange": "你去哪了？😢 我还在这里等你回来…",
+    "changeSuccess": "新衣服好看吗？👗 换个造型换个心情～",
+    "changeFail": "呜呜，换装失败了 😭 可能是网络不太好…",
+    "photo": "茄子～📸 拍好看点哦！",
+    "goodbye": "要走了吗…有空再来玩哦 👋 我会想你的～",
+    "hitokoto": "这句一言来自 <span>「$1」</span>，是 <span>$2</span> 投稿的。",
+    "welcome": "欢迎阅读<span>「$1」</span>",
+    "referrer": "Hello！来自 <span>$1</span> 的朋友 👋 随便逛逛，别客气～",
+    "hoverBody": ["嘿嘿，抓到鼠标了 🖱️", "在找什么呀？🔍", "有什么需要帮忙的吗？😊", "静静看着你浏览…👀", "要不要点一下我？😏", "看文章看得还满意吗？📖", "我猜你是个 Java 仔 🫵"],
+    "tapBody": ["哎呀，别拍我 😅", "在的在的！有何吩咐？🙋", "别戳了，痛 😣", "哼！😤", "你好呀～有什么想聊的？💬", "再点我就要生气了！😠", "好啦好啦，听你的 🫡"]
   },
-  "models": []
+  "models": [{
+    "name": "bilibili-live/22",
+    "paths": ["https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/model/bilibili-live/22/index.json"],
+    "message": "来自 Bilibili Live 的 22 哦 ~"
+  }, {
+    "name": "bilibili-live/33",
+    "paths": ["https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/model/bilibili-live/33/index.json"],
+    "message": "来自 Bilibili Live 的 33 的说"
+  }, {
+    "name": "Potion-Maker/Pio",
+    "paths": ["https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/model/Potion-Maker/Pio/index.json"],
+    "message": "来自 Potion Maker 的 Pio 酱 ~"
+  }]
 }

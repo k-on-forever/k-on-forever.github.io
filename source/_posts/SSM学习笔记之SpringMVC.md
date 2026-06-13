@@ -8,7 +8,7 @@ tags:
   - SpringMVC
   - Spring
 description: SpringMVC 入门、Tomcat、控制器与请求映射
-cover: /img/default_cover.png
+cover: /img/SpringMVC.jpeg
 ---
 
 ## SpringMVC学习笔记

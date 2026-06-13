@@ -2,7 +2,16 @@
   const isCategoriesPage = document.querySelector('.page.type-categories');
   if (!isCategoriesPage) return;
 
-  const ensureChartJs = () => typeof window.Chart !== 'undefined';
+  const ensureChartJs = () => {
+    if (typeof window.Chart !== 'undefined') return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = '/vendor/chart.js/chart.umd.min.js';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
 
   const pick = (arr, i) => arr[i % arr.length];
 
@@ -156,9 +165,10 @@
     return dash;
   }
 
-  function renderChart(dash, items) {
+  async function renderChart(dash, items) {
     if (!dash || !dash.__canvas) return;
-    if (!ensureChartJs()) return;
+    await ensureChartJs();
+    if (typeof window.Chart === 'undefined') return;
 
     // Prefer top-level categories for chart clarity
     const top = items.filter(it => it.depth === 0);
@@ -245,7 +255,7 @@
     });
   }
 
-  function init() {
+  async function init() {
     const ul = el.list();
     if (!ul) return;
     const items = parseCategoryTree(ul);
@@ -254,7 +264,7 @@
     const dash = buildDashboard(items);
     if (!dash) return;
 
-    renderChart(dash, items);
+    await renderChart(dash, items);
   }
 
   // Run now and on theme events
@@ -263,5 +273,8 @@
     window.btf.addGlobalFn('pjaxComplete', init, 'acg_catdash');
     window.btf.addGlobalFn('themeChange', init, 'acg_catdash_theme');
   }
+
+  // Fallback: re-init on full page load (e.g. if PJAX missed)
+  window.addEventListener('load', () => { init(); });
 })();
 

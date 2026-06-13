@@ -11,7 +11,7 @@
 
 nav:
   # Navigation bar logo image
-  logo: /img/logo.jpg
+  logo: /img/logo.png
   display_title: true
   fixed: true
 
@@ -47,10 +47,10 @@ social:
 # Image Settings
 # --------------------------------------
 
-favicon: /img/favicon.jpg
+favicon: /img/logo.png
 
 avatar:
-  img: /img/butterfly-icon.jpg
+  img: /img/avatar.jpg
   effect: false
 
 # Disable all banner images
@@ -95,7 +95,7 @@ cover:
   aside_enable: true
   archives_enable: true
   # When cover is not set, the default cover is displayed
-  default_cover: /img/default_cover.png
+  default_cover: /img/default_cover.jpg
     # - xxx.jpg
 
 # Replace Broken Images
@@ -117,7 +117,7 @@ post_meta:
     # Choose: date / relative
     date_format: date
     categories: true
-    tags: true
+    tags: false
     label: true
   post:
     # Choose: left / center（居中更接近参考站 Kyle 式顶栏排版）
@@ -137,22 +137,19 @@ index_top_img_height:
 
 # The subtitle on homepage
 subtitle:
-  enable: true          # 开启副标题
-  # NOTE: 当前主题版本这里实际是“反逻辑”：
-  # true  才会走 Typed.js 动画分支
+  enable: true
   effect: true
   typed_option:
-    typeSpeed: 85
-    backSpeed: 45
-    startDelay: 400
-    backDelay: 1600
+    typeSpeed: 100
+    backSpeed: 80
+    startDelay: 300
+    backDelay: 1500
     loop: true
     showCursor: true
     cursorChar: '|'
   source: false
-  # 这里的内容会以打字机效果轮流显示
   sub:
-    - "有一个早晨，我烧掉了所有的过去，从此我的脚步变得轻盈了"
+    - "当你为错过太阳哭泣的时候，你也要错过群星了"
 
 # Article layout on the homepage
 # 1: Cover on the left, info on the right
@@ -165,8 +162,7 @@ subtitle:
 # 4: 上封面下正文，配合 custom.css 做「信封」三列网格（勿用 6/7，否则会启用瀑布流脚本）
 index_layout: 4
 index_post_content:
-  method: 2
-  length: 150
+  method: 0
 
 # --------------------------------------
 # Post Settings
@@ -242,7 +238,7 @@ footer:
   copyright:
     enable: true
     version: true
-  custom_text:
+  custom_text: '<a href="/atom.xml" title="订阅 RSS" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);margin:0 8px;"><i class="fa-solid fa-rss"></i> RSS</a> | <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);margin:0 8px;">粤ICP备2026067968号</a>'
 
 # --------------------------------------
 # Aside Settings
@@ -509,7 +505,6 @@ comments:
   # Leave it empty if you don't need comments
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # Format of two comments system : Disqus,Waline
-  # Utterances：每篇文章对应一个 Issue，需在仓库安装应用 https://github.com/apps/utterances（仓库须公开）
   use: Utterances
   # Display the comment name next to the button
   text: true
@@ -892,9 +887,9 @@ lightbox: fancybox
 
 # Series
 series:
-  enable: false
+  enable: true
   # Order by title or date
-  orderBy: 'title'
+  orderBy: 'date'
   # Sort of order. 1, asc for ascending; -1, desc for descending
   order: 1
   number: true
@@ -955,7 +950,7 @@ note:
 
 # https://github.com/MoOx/pjax
 pjax:
-  enable: false
+  enable: true
   # Exclude the specified pages from pjax, such as '/music/'
   exclude:
     # - /xxxxxx/
@@ -1031,24 +1026,23 @@ inject:
   head:
     - <link rel="preconnect" href="https://fonts.googleapis.com">
     - <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    - <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    - <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
     - <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     - <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    - <link rel="preload" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    # ZCOOL KuaiLe 和 Noto Serif SC 未使用，已移除
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
     - <script src="/vendor/typed/typed.umd.js" defer></script>
-    - <script src="/js/home-hero-typewriter.js" defer></script>
-    - <script src="/js/card-motion-plus.js?v=20260324" defer></script>
-    - <script src="/js/scroll-story-plus.js?v=20260324" defer></script>
-    - <script src="/js/cursor-beauty.js?v=20260320" defer></script>
+    - <script src="/js/common-bundle.js?v=20260517" defer></script>
+    - <script src="/js/home-bundle.js?v=20260517" defer></script>
+    - <script src="/js/post-bundle.js?v=20260517" defer></script>
     - <script type="module" src="/js/live2d-waifu.js?v=20260322"></script>
     - <script src="/js/waifu-toggle.js?v=20260403" defer></script>
     - <script src="/js/font-switcher.js?v=20260403" defer></script>
-    - <script src="/js/home-weather-clock.js" defer></script>
-    - <script src="/js/home-index-reveal.js" defer></script>
     - <script src="/js/categories-dashboard.js?v=20260402" defer></script>
     - <script src="/js/tags-heat-tooltip.js?v=20260501" defer></script>
-    - <script src="/js/reading-progress.js" defer></script>
-    - <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work

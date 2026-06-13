@@ -1,11 +1,12 @@
 ---
 title: Redis学习笔记之基础篇
+description: Redis 基础入门：NoSQL 概述、Redis 数据类型、常用命令与 Jedis 客户端操作
 date: 2026-03-29 10:00:00
 categories:
   - Redis
 tags:
   - Redis
-cover: /img/redis-jichu.jpg
+cover: /img/redis_jichu.jpg
 ---
 
 ## Redis 学习笔记

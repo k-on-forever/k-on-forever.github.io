@@ -1,16 +1,17 @@
 ---
 title: MySQL学习笔记之运维篇
+description: MySQL 日志系统、主从复制原理、分库分表方案与数据库备份恢复策略
 date: 2026-03-28 12:00:00
 categories:
   - MySQL
 tags:
   - MySQL
-cover: /img/mysql-jichu.png
+cover: /img/mysql_yunwei.jpg
 ---
 
 ### 日志
 
-#### 1. 错误日志
+#### 错误日志
 
 (1) 错误日志是 MySQL 中最重要的日志之一，它记录了当 mysqld 启动和停止时，以及服务器在运行过程中发生任何严重错误时的相关信息当数据库出现任何故障导致无法正常使用时，建议首先查看此日志。
 
@@ -20,7 +21,7 @@ cover: /img/mysql-jichu.png
 show variables like '%log_error%'
 ```
 
-#### 2. 二进制日志
+#### 二进制日志
 
 (1) 二进制日志(BINLOG)记录了所有的 DDL(数据定义语言)语句和 DML(数据操纵语言)语句，但不包括数据查询(SELECT、SHOW)语句。
 
@@ -82,7 +83,7 @@ mysqlbinlog[参数选项]logfilename
 show variables like '%binlog_expire_logs_seconds%'
 ```
 
-#### 3. 查询日志
+#### 查询日志
 
 (1) 查询日志中记录了客户端的所有操作语句，而二进制日志不包含查询数据的SQL语句。默认情况下，查询日志是未开启的。如果需要开启查询日志，可以设置一下配置：
 
@@ -95,7 +96,7 @@ general_log=1
 general_log_file=mysql_query.log
 ```
 
-#### 4. 慢查询日志
+#### 慢查询日志
 
 (1) 慢查询日志记录了所有执行时间超过参数 long_query_time 设置值并且扫描记录数不小于 min_examined_row_limit的所有的SQL语句的日志，默认未开启。long_query_time 默认为 10 秒，最小为0，精度可以到微秒。
 
@@ -117,7 +118,7 @@ log_queries_not_using_indexes = 1
 
 ### 主从复制
 
-#### 1. 概述
+#### 概述
 
 (1) 主从复制是指将主数据库的 DDL 和 DML 操作通过二进制日志传到从库服务器中，然后在从库上对这些日志重新执行（也叫做重做），从而使得从库和主库的数据保持同步。
 
@@ -131,7 +132,7 @@ log_queries_not_using_indexes = 1
 
 ③ 可以在从库中执行备份，以避免备份期间影响主服务器。
 
-#### 2. 原理
+#### 原理
 
 <img src="https://i-blog.csdnimg.cn/direct/1995691d74904bae8145f9d4e7e8aec7.png" alt="img" style="zoom:67%;" />
 
@@ -143,11 +144,11 @@ log_queries_not_using_indexes = 1
 
 (3) slave 重做中继日志中的事件，将改变反映它自己的数据。
 
-#### 3. 搭建
+#### 搭建
 
 ![img](https://i-blog.csdnimg.cn/direct/b49db5a2f7ca48a48d48800da7b37344.png)
 
-#### 4. 主库配置
+#### 主库配置
 
 (1) 修改配置文件 /etc/my.cnf
 
@@ -191,7 +192,7 @@ position：从哪个位置开始推送日志
 
 binlog_ignore_db：指定不需要同步的数据库
 
-#### 5. 从库配置
+#### 从库配置
 
 (1) 修改配置文件 /etc/my.cnf
 
@@ -242,7 +243,7 @@ show replica status ;  #8.0.22之后
 show slave status ;    #8.0.22之前
 ```
 
-#### 6. 测试
+#### 测试
 
 (1) 在主库上创建数据库、表，并插入数据
 
@@ -261,7 +262,7 @@ insert into tb_user(id, name, sex) valurs (null, 'Tom', '1'), (null, 'Trigger', 
 
 ### 分库分表
 
-#### 1. 介绍
+#### 介绍
 
 (1) 问题分析
 
@@ -329,7 +330,7 @@ insert into tb_user(id, name, sex) valurs (null, 'Tom', '1'), (null, 'Trigger', 
 - 每个表的数据都不一样。
 - 所有表的并集是全量数据。
 
-#### 2. Mycat 入门
+#### Mycat 入门
 
 (1) 安装
 
@@ -403,7 +404,7 @@ INSERT INTO TB_ORDER(id,title) VALUES(1000000,'goods1000000');
 INSERT INTO TB_ORDER(id,title) VALUES(10000000,'goods10000000');
 ```
 
-#### 3. MyCat 配置
+#### MyCat 配置
 
 (1) schema.xml
 
@@ -512,7 +513,7 @@ rule.xml 中定义所有分表的规则，在使用过程中可以灵活的使�
 
 ### 分库分表
 
-#### 1. 垂直拆分
+#### 垂直拆分
 
 (1) 场景
 
@@ -582,7 +583,7 @@ SELECT o.order_id, p.payment,o.receiver,p.province,c.city,r.area FROM tb_order_m
 <table name="tb_areas_region" dataNode="dn1,dn2,dn3" primaryKey="id" type="global"/>
 ```
 
-#### 2. 水平拆分
+#### 水平拆分
 
 (1) 场景
 
@@ -642,7 +643,7 @@ PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-#### 3. 分片规则
+#### 分片规则
 
 (1) 范围分片
 
@@ -800,7 +801,7 @@ PRIMARY KEY (id)
 
 <img src="https://i-blog.csdnimg.cn/direct/a290c4c0e7e144449de600820a624df6.png" alt="img" style="zoom:80%;" />
 
-#### 4. Mycat 管理及监控
+#### Mycat 管理及监控
 
 (1) Mycat 原理
 
@@ -849,7 +850,7 @@ mysql -h 192.168.200.210 -P 9066 -uroot -p123456
 
 ### 读写分离
 
-#### 1. 介绍
+#### 介绍
 
 (1) 读写分离，简单地说是把对数据库的读和写操作分开，对应不同的数据库服务器。主数据库提供写操作，从数据库提供读操作，这样能有效地减轻单台数据库的压力。
 
@@ -865,7 +866,7 @@ mysql -h 192.168.200.210 -P 9066 -uroot -p123456
 
 ③ 主库与从库之间通过主从复制（blog）同步数据
 
-#### 2. 一主一从读写分离
+#### 一主一从读写分离
 
 (1) 配置
 
@@ -882,7 +883,7 @@ Mycat 中`balance`参数的取值及含义说明表：
 | 2      | 所有的读写操作都随机在 writeHost、readHost 上分发            |
 | 3      | 所有的读请求随机分发到 writeHost 对应的 readHost 上执行，writeHost 不负担读压力 |
 
-#### 3. 双主双从
+#### 双主双从
 
 (1) 介绍
 
@@ -1054,7 +1055,7 @@ insertinto tb user(id,name,sex) values(5,'Coco','0');
 insert into tb user(id,name,sex) values(6,'erry','1');
 ```
 
-#### 4. 双主双从读写分离
+#### 双主双从读写分离
 
 (1) 配置
 

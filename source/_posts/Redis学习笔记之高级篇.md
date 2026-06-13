@@ -1,6 +1,17 @@
+---
+title: Redis学习笔记之高级篇
+description: Redis 高级特性：持久化机制 RDB/AOF、主从哨兵架构与分布式缓存方案
+date: 2026-04-04 10:00:00
+categories:
+  - Redis
+tags:
+  - Redis
+cover: /img/redis_gaoji.jpeg
+---
+
 ### 分布式缓存
 
-#### 1. Redis持久化
+#### Redis持久化
 
 ##### RDB持久化
 
@@ -110,7 +121,7 @@ appendfsync no
 
 如图，AOF原本有三个命令，但是`set num 123 和 set num 666`都是对num的操作，第二次会覆盖第一次的值，因此第一个命令记录下来没有意义。 所以重写命令后，AOF文件内容就是：`mset name jack num 666`
 
-#### 2. Redis主从
+#### Redis主从
 
 ##### 主从数据同步原理
 
@@ -213,7 +224,7 @@ master 持续写入，`offset` 快速增长，而 slave 的 `offset` 停滞不�
 - 适当提高repl_baklog的大小，发现slave宕机时尽快实现故障恢复，尽可能避免全量同步
 - 限制一个master上的slave节点数量，如果实在是太多slave，则可以采用主-从-从链式结构，减少master压力<img src="https://i-blog.csdnimg.cn/direct/738d436a431d4442a3a2e09ed37a57b7.png" alt="img" style="zoom:67%;" />
 
-#### 3. Redis哨兵
+#### Redis哨兵
 
 ##### 哨兵原理
 
@@ -282,7 +293,7 @@ public LettuceClientConfigurationBuilderCustomizer clientConfigurationBuilderCus
 - REPLICA：从slave（replica）节点读取
 - REPLICA _PREFERRED：优先从slave（replica）节点读取，所有的slave都不可用才读取master
 
-#### 4. Redis分片集群
+#### Redis分片集群
 
 ##### 散列插槽
 
