@@ -13,8 +13,6 @@
 
 ## 📸 预览
 
-> 💡 将截图放在 `screenshots/` 目录下，然后在此处引用
-
 | 首页 | 文章页 | 分类页 |
 |------|--------|--------|
 | ![首页](screenshots/home.png) | ![文章页](screenshots/post.png) | ![分类页](screenshots/categories.png) |
@@ -126,7 +124,7 @@ categories:
 ## 🌐 访问地址
 
 - **博客地址**：https://kon-forever.cloud
-- **GitHub 仓库**：https://github.com/k-on-forever/blog
+- **GitHub 仓库**：https://github.com/k-on-forever/k-on-forever.github.io
 
 ## 📄 License
 
