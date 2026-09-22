@@ -1,8 +1,8 @@
 # 友链数据：Butterfly 主题读取本文件渲染 /link/ 页面。
-# 新增友链：在对应分组的 link_list 下追加一项（name / link / avatar / descr）。
-# 也可新建分组（class_name + class_desc + link_list）。
-- class_name: 本站
-  class_desc: 博客主站
+# 新增友链：在 link_list 下追加 name / link / avatar / descr 四项即可。
+# 需要分组时，复制一组 class_name + class_desc + link_list 块。
+- class_name: 友情链接
+  class_desc: 欢迎交换友链。若希望互换链接，可通过 GitHub Issue 或侧栏社交方式联系我，请注明站点名称、链接、简介与头像地址。
   link_list:
     - name: k-on-forever's Blog
       link: https://kon-forever.cloud
