@@ -19,6 +19,7 @@ menu:
   首页: / || fa-solid fa-house-chimney
   分类: /categories/ || fa-solid fa-folder-open
   标签: /tags/ || fa-solid fa-hashtag
+  友链: /link/ || fa-solid fa-link
   关于: /about/ || fa-solid fa-user
 
 # --------------------------------------

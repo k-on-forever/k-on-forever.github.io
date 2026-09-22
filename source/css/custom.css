@@ -1486,6 +1486,25 @@ canvas#live2dcanvas,
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
+/* ========== 友链页：顶部说明 ========== */
+#article-container .flink-intro {
+  max-width: min(820px, 100%);
+  margin: 0 auto 1.25rem;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--font-color);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme='dark'] #article-container .flink-intro {
+  background: rgba(30, 41, 59, 0.55);
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
 /* ========== 关于页：分层卡片 + 技能条（与首页 ACG 风一致） ========== */
 #article-container .about-page {
   max-width: min(820px, 100%);
