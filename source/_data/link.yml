@@ -1,6 +1,13 @@
 # 友链数据：Butterfly 主题读取本文件渲染 /link/ 页面。
 # 新增友链：在对应分组的 link_list 下追加一项（name / link / avatar / descr）。
 # 也可新建分组（class_name + class_desc + link_list）。
+- class_name: 友站
+  class_desc: 一起学习、一起记录
+  link_list:
+    - name: mio的小窝
+      link: https://17356085.github.io/
+      avatar: https://17356085.github.io/favicon/favicon.jpg
+      descr: 记录学习、阅读与生活中的小事
 - class_name: 本站
   class_desc: 博客主站
   link_list:
